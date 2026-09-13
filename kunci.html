@@ -25,7 +25,21 @@
       <a href="verifikasi.html" class="hover:text-slate-900 transition">Verifikasi</a>
       <a href="kunci.html" class="text-slate-900">Kunci Saya</a>
     </div>
-    <a href="amankan.html" class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition">Amankan Dokumen</a>
+    <div class="flex items-center gap-3">
+      <a href="amankan.html" class="hidden sm:inline-block text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition">Amankan Dokumen</a>
+      <button id="nav-toggle" class="md:hidden text-slate-600 hover:text-slate-900 transition">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </div>
+  <div id="nav-menu" class="hidden md:hidden border-t border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-3 space-y-1 text-sm font-medium text-slate-600">
+      <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Beranda</a>
+      <a href="amankan.html" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Amankan Dokumen</a>
+      <a href="buka.html" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Buka Dokumen</a>
+      <a href="verifikasi.html" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Verifikasi</a>
+      <a href="kunci.html" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Kunci Saya</a>
+    </div>
   </div>
 </nav>
 
@@ -208,6 +222,10 @@
 
 <script>
 lucide.createIcons();
+
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+navToggle.addEventListener('click', () => navMenu.classList.toggle('hidden'));
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const pubKeySample = 'KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvG7xK2mQp8sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt';
