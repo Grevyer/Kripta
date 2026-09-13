@@ -1,9 +1,8 @@
 const KriptaIdentity = (() => {
   const STORAGE_KEY = 'kripta_identity';
-  const DEFAULT_IDENTITY = {
-    name: 'Budi Santoso',
-    fingerprint: 'A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8',
-    createdAt: '10 Sep 2026'
+  const SAMPLE_SENDER = {
+    name: 'Pengirim Contoh',
+    fingerprint: 'B7:3E:52:9A:1D:84:CF:60:2B:77:E5:08:93:AD:41:D6'
   };
 
   function randomFingerprint() {
@@ -23,9 +22,9 @@ const KriptaIdentity = (() => {
   function get() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : DEFAULT_IDENTITY;
+      return raw ? JSON.parse(raw) : null;
     } catch (e) {
-      return DEFAULT_IDENTITY;
+      return null;
     }
   }
 
@@ -41,5 +40,5 @@ const KriptaIdentity = (() => {
     } catch (e) {}
   }
 
-  return { get, save, reset, randomFingerprint, slug, today, DEFAULT_IDENTITY };
+  return { get, save, reset, randomFingerprint, slug, today, SAMPLE_SENDER };
 })();

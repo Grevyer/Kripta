@@ -81,7 +81,7 @@
       <div class="px-8 py-6 space-y-4 text-sm">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-100 pb-3.5">
           <span class="text-slate-500">Ditandatangani oleh</span>
-          <span id="signer-name" class="font-medium text-slate-800">Budi Santoso (@budi_santoso)</span>
+          <span id="signer-name" class="font-medium text-slate-800">Pengirim Contoh (@pengirim_contoh)</span>
         </div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-100 pb-3.5">
           <span class="text-slate-500">Waktu penandatanganan</span>
@@ -93,7 +93,7 @@
         </div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <span class="text-slate-500">Kode verifikasi kunci penandatangan</span>
-          <span id="signer-fp" class="font-mono text-xs text-slate-800 break-all">A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8</span>
+          <span id="signer-fp" class="font-mono text-xs text-slate-800 break-all">B7:3E:52:9A:1D:84:CF:60:2B:77:E5:08:93:AD:41:D6</span>
         </div>
       </div>
     </div>
@@ -161,8 +161,9 @@
 lucide.createIcons();
 
 const identity = KriptaIdentity.get();
-document.getElementById('signer-name').textContent = identity.name + ' (@' + KriptaIdentity.slug(identity.name) + ')';
-document.getElementById('signer-fp').textContent = identity.fingerprint;
+const signer = identity || KriptaIdentity.SAMPLE_SENDER;
+document.getElementById('signer-name').textContent = signer.name + ' (@' + KriptaIdentity.slug(signer.name) + ')';
+document.getElementById('signer-fp').textContent = signer.fingerprint;
 
 const btnVerify = document.getElementById('btn-verify');
 const loading = document.getElementById('loading');

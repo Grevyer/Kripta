@@ -42,27 +42,27 @@
   <div class="mt-12 grid md:grid-cols-2 gap-6 items-start">
     <div class="bg-white border border-slate-200 rounded-2xl p-7">
       <div class="flex items-center gap-4">
-        <span id="id-avatar" class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold text-lg">B</span>
+        <span id="id-avatar" class="w-12 h-12 rounded-full bg-slate-300 text-white flex items-center justify-center font-semibold text-lg">?</span>
         <div>
-          <p id="id-name" class="font-semibold text-slate-900">Budi Santoso</p>
-          <p id="id-date" class="text-xs text-slate-500">Dibuat 10 Sep 2026 · tersimpan di perangkat ini</p>
+          <p id="id-name" class="font-semibold text-slate-900">Belum ada identitas</p>
+          <p id="id-date" class="text-xs text-slate-500">Buat identitas pertamamu untuk mulai</p>
         </div>
       </div>
       <div class="mt-5 bg-slate-50 border border-slate-200 rounded-xl p-4">
         <p class="text-[11px] uppercase tracking-wide text-slate-400 font-medium">Kode verifikasi kunci publik</p>
-        <p id="id-fp" class="mt-1 text-xs font-mono text-slate-700 break-all">A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8</p>
+        <p id="id-fp" class="mt-1 text-xs font-mono text-slate-700 break-all">—</p>
       </div>
       <div class="mt-5 space-y-2.5">
-        <button id="btn-copy-pub" class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+        <button id="btn-copy-pub" disabled class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
           <i data-lucide="copy" class="w-4 h-4"></i>
           Salin Kunci Publik
         </button>
-        <button id="btn-dl-pub" class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+        <button id="btn-dl-pub" disabled class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
           <i data-lucide="download" class="w-4 h-4"></i>
           Unduh Kunci Publik
         </button>
         <div class="grid grid-cols-2 gap-2.5">
-          <button id="btn-dl-key" class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+          <button id="btn-dl-key" disabled class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
             <i data-lucide="hard-drive-download" class="w-4 h-4"></i>
             Cadangkan
           </button>
@@ -214,10 +214,24 @@ const pubKeySample = 'KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ
 const keyBackupSample = 'KRIPTA-KEY-7B1C04E922AF63D1-ENC-AES256GCM-eyJ2IjoxLCJpdGVyIjo2MDAwMDAsInNhbHQiOiJ4UzRrVG0iLCJpdiI6ImZQcTJOeSIsImN0IjoiRzN4S2F2YjdUblFwOThXeTFjWmJSOWZMalEifQ';
 
 function renderIdentity(id) {
-  document.getElementById('id-avatar').textContent = (id.name.trim().charAt(0) || '?').toUpperCase();
-  document.getElementById('id-name').textContent = id.name;
-  document.getElementById('id-date').textContent = 'Dibuat ' + id.createdAt + ' · tersimpan di perangkat ini';
-  document.getElementById('id-fp').textContent = id.fingerprint;
+  const avatar = document.getElementById('id-avatar');
+  const name = document.getElementById('id-name');
+  const date = document.getElementById('id-date');
+  const fp = document.getElementById('id-fp');
+  ['btn-copy-pub', 'btn-dl-pub', 'btn-dl-key'].forEach((btnId) => {
+    document.getElementById(btnId).disabled = !id;
+  });
+  if (!id) {
+    avatar.textContent = '?';
+    name.textContent = 'Belum ada identitas';
+    date.textContent = 'Buat identitas pertamamu untuk mulai';
+    fp.textContent = '—';
+    return;
+  }
+  avatar.textContent = (id.name.trim().charAt(0) || '?').toUpperCase();
+  name.textContent = id.name;
+  date.textContent = 'Dibuat ' + id.createdAt + ' · tersimpan di perangkat ini';
+  fp.textContent = id.fingerprint;
 }
 
 function download(name, content) {
@@ -243,12 +257,21 @@ async function copyText(btn, text) {
 
 renderIdentity(KriptaIdentity.get());
 
-document.getElementById('btn-copy-pub').addEventListener('click', (e) => copyText(e.currentTarget, pubKeySample));
-document.getElementById('btn-dl-pub').addEventListener('click', () => {
-  download(KriptaIdentity.slug(KriptaIdentity.get().name) + '.sahpub', pubKeySample);
+document.getElementById('btn-copy-pub').addEventListener('click', (e) => {
+  if (!KriptaIdentity.get()) return;
+  copyText(e.currentTarget, pubKeySample);
 });
+
+document.getElementById('btn-dl-pub').addEventListener('click', () => {
+  const id = KriptaIdentity.get();
+  if (!id) return;
+  download(KriptaIdentity.slug(id.name) + '.sahpub', pubKeySample);
+});
+
 document.getElementById('btn-dl-key').addEventListener('click', () => {
-  download(KriptaIdentity.slug(KriptaIdentity.get().name) + '.sahkey', keyBackupSample);
+  const id = KriptaIdentity.get();
+  if (!id) return;
+  download(KriptaIdentity.slug(id.name) + '.sahkey', keyBackupSample);
 });
 
 document.getElementById('btn-import').addEventListener('click', () => document.getElementById('import-file').click());

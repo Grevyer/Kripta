@@ -135,6 +135,7 @@
             <span id="toggle-knob" class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform"></span>
           </button>
         </div>
+        <p id="sign-hint" class="hidden mt-3 text-xs text-amber-700">Kamu belum punya identitas — <a href="kunci.html" class="font-medium underline">buat kunci dulu</a> untuk mengaktifkan tanda tangan.</p>
         <div id="panel-sign" class="hidden mt-4">
           <label class="block text-sm font-medium text-slate-700 mb-1.5">Identitas penandatangan</label>
           <select id="sign-identity" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition bg-white">
@@ -248,7 +249,7 @@
 
       <div id="result-sign" class="hidden mt-4 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-left items-center gap-3">
         <i data-lucide="pen-tool" class="w-5 h-5 text-emerald-600 shrink-0"></i>
-        <p class="text-sm text-emerald-800">Ditandatangani oleh <strong id="result-signer">Budi Santoso</strong> — keaslian bisa dicek siapa pun.</p>
+        <p class="text-sm text-emerald-800">Ditandatangani oleh <strong id="result-signer">Pengirim Contoh</strong> — keaslian bisa dicek siapa pun.</p>
       </div>
 
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -272,9 +273,16 @@
 lucide.createIcons();
 
 const identity = KriptaIdentity.get();
-const shortFp = identity.fingerprint.split(':').slice(0, 8).join(':');
-document.getElementById('sign-identity').innerHTML = '<option>' + identity.name + ' — ' + shortFp + '</option>';
-document.getElementById('result-signer').textContent = identity.name;
+if (identity) {
+  const shortFp = identity.fingerprint.split(':').slice(0, 8).join(':');
+  document.getElementById('sign-identity').innerHTML = '<option>' + identity.name + ' — ' + shortFp + '</option>';
+  document.getElementById('result-signer').textContent = identity.name;
+} else {
+  document.getElementById('sign-hint').classList.remove('hidden');
+  const toggle = document.getElementById('toggle-sign');
+  toggle.disabled = true;
+  toggle.classList.add('opacity-40', 'cursor-not-allowed');
+}
 
 const panels = [...document.querySelectorAll('[data-panel]')];
 const circles = [...document.querySelectorAll('[data-circle]')];

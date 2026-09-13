@@ -105,12 +105,12 @@
             <span class="text-slate-500">Tanda tangan digital</span>
             <span class="inline-flex items-center gap-1.5 font-medium text-emerald-700">
               <i data-lucide="circle-check" class="w-4 h-4"></i>
-              Valid — <span id="signed-by">Budi Santoso</span>
+              Valid — <span id="signed-by">Pengirim Contoh</span>
             </span>
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <span class="text-slate-500">Kode verifikasi kunci penandatangan</span>
-            <span id="signer-fp" class="font-mono text-xs text-slate-800 break-all">A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8</span>
+            <span id="signer-fp" class="font-mono text-xs text-slate-800 break-all">B7:3E:52:9A:1D:84:CF:60:2B:77:E5:08:93:AD:41:D6</span>
           </div>
         </div>
       </div>
@@ -145,10 +145,13 @@
 lucide.createIcons();
 
 const identity = KriptaIdentity.get();
-const shortFp = identity.fingerprint.split(':').slice(0, 8).join(':');
-document.getElementById('stored-key').innerHTML = '<option>' + identity.name + ' — ' + shortFp + '</option>';
-document.getElementById('signed-by').textContent = identity.name;
-document.getElementById('signer-fp').textContent = identity.fingerprint;
+const signer = identity || KriptaIdentity.SAMPLE_SENDER;
+const shortFp = signer.fingerprint.split(':').slice(0, 8).join(':');
+document.getElementById('stored-key').innerHTML = identity
+  ? '<option>' + identity.name + ' — ' + shortFp + '</option>'
+  : '<option>Belum ada kunci tersimpan</option>';
+document.getElementById('signed-by').textContent = signer.name;
+document.getElementById('signer-fp').textContent = signer.fingerprint;
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const loading = document.getElementById('loading');
