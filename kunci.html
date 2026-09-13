@@ -286,23 +286,43 @@ document.getElementById('btn-dl-pub').addEventListener('click', () => {
   download(KriptaIdentity.slug(id.name) + '.sahpub', pubKeySample);
 });
 
+function buildBackupContent(id) {
+  return 'KRIPTA-KEY-v1\nname=' + id.name + '\nfingerprint=' + id.fingerprint + '\ncreated=' + id.createdAt + '\nblob=' + keyBackupSample;
+}
+
 document.getElementById('btn-dl-key').addEventListener('click', () => {
   const id = KriptaIdentity.get();
   if (!id) return;
-  download(KriptaIdentity.slug(id.name) + '.sahkey', keyBackupSample);
+  download(KriptaIdentity.slug(id.name) + '.sahkey', buildBackupContent(id));
 });
 
 document.getElementById('btn-import').addEventListener('click', () => document.getElementById('import-file').click());
 
-document.getElementById('import-file').addEventListener('change', (e) => {
+document.getElementById('import-file').addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  const base = file.name.replace(/\.sahkey$/i, '').replace(/[_-]+/g, ' ').trim();
-  const imported = {
-    name: base || 'Identitas Impor',
-    fingerprint: KriptaIdentity.randomFingerprint(),
-    createdAt: KriptaIdentity.today()
-  };
+  let imported = null;
+  try {
+    const text = await file.text();
+    const nameMatch = text.match(/^name=(.+)$/m);
+    const fpMatch = text.match(/^fingerprint=(.+)$/m);
+    const createdMatch = text.match(/^created=(.+)$/m);
+    if (nameMatch) {
+      imported = {
+        name: nameMatch[1].trim(),
+        fingerprint: fpMatch ? fpMatch[1].trim() : KriptaIdentity.randomFingerprint(),
+        createdAt: createdMatch ? createdMatch[1].trim() : KriptaIdentity.today()
+      };
+    }
+  } catch (err) {}
+  if (!imported) {
+    const base = file.name.replace(/\.sahkey$/i, '').replace(/[_-]+/g, ' ').trim();
+    imported = {
+      name: base || 'Identitas Impor',
+      fingerprint: KriptaIdentity.randomFingerprint(),
+      createdAt: KriptaIdentity.today()
+    };
+  }
   KriptaIdentity.save(imported);
   renderIdentity(imported);
   const note = document.getElementById('import-note');
@@ -345,7 +365,7 @@ document.getElementById('btn-create-key').addEventListener('click', async () => 
 
 document.getElementById('btn-dl-backup').addEventListener('click', () => {
   const id = KriptaIdentity.get();
-  download(KriptaIdentity.slug(id.name) + '.sahkey', keyBackupSample);
+  download(KriptaIdentity.slug(id.name) + '.sahkey', buildBackupContent(id));
   const btn = document.getElementById('btn-dl-backup');
   btn.innerHTML = '<i data-lucide="circle-check" class="w-4 h-4 text-emerald-600"></i> File cadangan diunduh';
   btn.classList.add('border-emerald-300', 'text-emerald-700');
