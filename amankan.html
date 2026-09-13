@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amankan Dokumen — Kripta</title>
+<script src="assets/tailwind.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/identity.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </span>
+      <span class="font-bold text-lg text-slate-900">Kripta</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
+      <a href="index.html" class="hover:text-slate-900 transition">Beranda</a>
+      <a href="amankan.html" class="text-slate-900">Amankan Dokumen</a>
+      <a href="buka.html" class="hover:text-slate-900 transition">Buka Dokumen</a>
+      <a href="verifikasi.html" class="hover:text-slate-900 transition">Verifikasi</a>
+      <a href="kunci.html" class="hover:text-slate-900 transition">Kunci Saya</a>
+    </div>
+    <a href="index.html" class="text-sm font-medium text-slate-500 hover:text-slate-900 transition">Keluar dari alur</a>
+  </div>
+</nav>
+
+<main class="max-w-3xl mx-auto px-4 py-10">
+  <div class="flex items-start">
+    <div class="flex flex-col items-center gap-2 w-20">
+      <span data-circle="1" class="w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-900 text-white">1</span>
+      <span class="text-xs font-medium text-slate-700">Upload</span>
+    </div>
+    <div class="flex-1 h-0.5 bg-slate-200 mt-5"></div>
+    <div class="flex flex-col items-center gap-2 w-20">
+      <span data-circle="2" class="w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-200 text-slate-500">2</span>
+      <span class="text-xs font-medium text-slate-500">Pengamanan</span>
+    </div>
+    <div class="flex-1 h-0.5 bg-slate-200 mt-5"></div>
+    <div class="flex flex-col items-center gap-2 w-20">
+      <span data-circle="3" class="w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-200 text-slate-500">3</span>
+      <span class="text-xs font-medium text-slate-500">Proses</span>
+    </div>
+    <div class="flex-1 h-0.5 bg-slate-200 mt-5"></div>
+    <div class="flex flex-col items-center gap-2 w-20">
+      <span data-circle="4" class="w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-200 text-slate-500">4</span>
+      <span class="text-xs font-medium text-slate-500">Selesai</span>
+    </div>
+  </div>
+
+  <div data-panel="1" class="mt-10">
+    <div class="bg-white border border-slate-200 rounded-2xl p-8">
+      <h1 class="text-xl font-bold text-slate-900">Pilih dokumen</h1>
+      <p class="mt-1.5 text-sm text-slate-500">Dokumen akan dienkripsi di perangkat ini sebelum dibagikan.</p>
+      <label class="mt-6 flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-slate-400 rounded-2xl py-14 cursor-pointer transition">
+        <input id="file-input" type="file" class="hidden">
+        <i data-lucide="upload-cloud" class="w-10 h-10 text-slate-400"></i>
+        <p class="mt-4 font-medium text-slate-700">Klik untuk pilih dokumen</p>
+        <p class="mt-1 text-xs text-slate-500">PDF, DOCX, XLSX — maks 25 MB</p>
+      </label>
+      <div id="file-chip" class="hidden mt-4 items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+        <i data-lucide="file-text" class="w-5 h-5 text-slate-500"></i>
+        <div class="flex-1">
+          <p id="file-name" class="text-sm font-medium text-slate-800"></p>
+          <p id="file-size" class="text-xs text-slate-500"></p>
+        </div>
+        <i data-lucide="circle-check" class="w-5 h-5 text-emerald-600"></i>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button id="btn-to-2" disabled class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold px-5 py-2.5 rounded-xl transition">
+          Lanjut
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div data-panel="2" class="mt-10 hidden">
+    <div class="bg-white border border-slate-200 rounded-2xl p-8">
+      <h1 class="text-xl font-bold text-slate-900">Pilih cara pengamanan</h1>
+      <p class="mt-1.5 text-sm text-slate-500">Keduanya dijalankan penuh di browser-mu.</p>
+
+      <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        <button data-mode="hybrid" class="mode-card text-left border-2 border-slate-200 bg-white hover:border-slate-300 rounded-2xl p-5 transition">
+          <div class="flex items-start justify-between">
+            <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="shield" class="w-5 h-5"></i>
+            </span>
+            <span data-mode-check class="hidden text-emerald-600"><i data-lucide="circle-check" class="w-5 h-5"></i></span>
+          </div>
+          <p class="mt-3.5 font-semibold text-slate-900">Hybrid (AES + RSA)</p>
+          <p class="mt-1 text-xs text-slate-500 leading-relaxed">Kunci AES diamankan dengan kunci publik penerima. Paling aman, tanpa berbagi password.</p>
+        </button>
+        <button data-mode="password" class="mode-card text-left border-2 border-slate-200 bg-white hover:border-slate-300 rounded-2xl p-5 transition">
+          <div class="flex items-start justify-between">
+            <span class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
+              <i data-lucide="key-round" class="w-5 h-5"></i>
+            </span>
+            <span data-mode-check class="hidden text-emerald-600"><i data-lucide="circle-check" class="w-5 h-5"></i></span>
+          </div>
+          <p class="mt-3.5 font-semibold text-slate-900">Password</p>
+          <p class="mt-1 text-xs text-slate-500 leading-relaxed">Dokumen dikunci dengan password otomatis. Bagikan password lewat jalur terpisah.</p>
+        </button>
+      </div>
+
+      <div id="panel-hybrid" class="hidden mt-6">
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">Kunci publik penerima</label>
+        <textarea id="pubkey" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition font-mono text-xs leading-relaxed">KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvG7xK2mQp8sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt</textarea>
+        <p class="mt-1.5 text-xs text-slate-500">Minta penerima membuat kunci di halaman <a href="kunci.html" class="font-medium text-slate-700 underline">Kunci Saya</a>, lalu kirimkan kunci publiknya kepadamu.</p>
+      </div>
+
+      <div id="panel-password" class="hidden mt-6">
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">Password pengamanan</label>
+        <div class="flex gap-2">
+          <input id="password-field" type="text" readonly value="Matahari-Ungu-72-Senja" class="flex-1 px-4 py-3 rounded-xl border border-slate-300 bg-slate-50 font-mono text-sm focus:outline-none">
+          <button id="btn-regen" class="inline-flex items-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 px-4 py-3 rounded-xl transition shrink-0">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            Acak
+          </button>
+        </div>
+        <p class="mt-1.5 text-xs text-slate-500">Kirim password ke penerima lewat jalur berbeda (misalnya telepon), jangan satu pesan dengan filenya.</p>
+      </div>
+
+      <div class="mt-8 border-t border-slate-200 pt-6">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="font-medium text-slate-800">Tanda tangani dokumen</p>
+            <p class="mt-0.5 text-xs text-slate-500">Bukti keaslian dari identitasmu. Opsional, tapi disarankan.</p>
+          </div>
+          <button id="toggle-sign" class="relative w-11 h-6 rounded-full bg-slate-300 transition shrink-0">
+            <span id="toggle-knob" class="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform"></span>
+          </button>
+        </div>
+        <div id="panel-sign" class="hidden mt-4">
+          <label class="block text-sm font-medium text-slate-700 mb-1.5">Identitas penandatangan</label>
+          <select id="sign-identity" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition bg-white">
+          </select>
+          <p class="mt-1.5 text-xs text-slate-500">Kunci privat tetap tersimpan di perangkatmu. <a href="kunci.html" class="font-medium text-slate-700 underline">Kelola kunci</a></p>
+        </div>
+      </div>
+
+      <div class="mt-8 flex items-center justify-between">
+        <button id="btn-back-1" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 px-4 py-2.5 transition">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          Kembali
+        </button>
+        <button id="btn-to-3" disabled class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold px-5 py-2.5 rounded-xl transition">
+          Enkripsi & Tanda Tangani
+          <i data-lucide="lock" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div data-panel="3" class="mt-10 hidden">
+    <div class="bg-white border border-slate-200 rounded-2xl p-8">
+      <h1 class="text-xl font-bold text-slate-900">Memproses dokumen</h1>
+      <p class="mt-1.5 text-sm text-slate-500">Semua proses berjalan di browser-mu. Kunci tidak dikirim ke server.</p>
+      <div class="mt-6 space-y-4">
+        <div data-task class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-medium text-slate-800">Membuat kunci AES-256</p>
+            <span data-task-status class="text-xs text-slate-500">Menunggu</span>
+          </div>
+          <div class="mt-3 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div data-bar class="h-full w-0 bg-emerald-500 rounded-full"></div>
+          </div>
+        </div>
+        <div data-task class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-medium text-slate-800">Mengenkripsi dokumen (AES-256-GCM)</p>
+            <span data-task-status class="text-xs text-slate-500">Menunggu</span>
+          </div>
+          <div class="mt-3 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div data-bar class="h-full w-0 bg-emerald-500 rounded-full"></div>
+          </div>
+        </div>
+        <div data-task class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+          <div class="flex items-center justify-between">
+            <p id="task-protect-label" class="text-sm font-medium text-slate-800">Mengamankan kunci AES (RSA-OAEP)</p>
+            <span data-task-status class="text-xs text-slate-500">Menunggu</span>
+          </div>
+          <div class="mt-3 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div data-bar class="h-full w-0 bg-emerald-500 rounded-full"></div>
+          </div>
+        </div>
+        <div data-task id="task-sign" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-medium text-slate-800">Menandatangani dokumen (RSA-PSS + SHA-256)</p>
+            <span data-task-status class="text-xs text-slate-500">Menunggu</span>
+          </div>
+          <div class="mt-3 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div data-bar class="h-full w-0 bg-emerald-500 rounded-full"></div>
+          </div>
+        </div>
+        <div data-task class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-medium text-slate-800">Menyusun paket .sdoc</p>
+            <span data-task-status class="text-xs text-slate-500">Menunggu</span>
+          </div>
+          <div class="mt-3 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+            <div data-bar class="h-full w-0 bg-emerald-500 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-panel="4" class="mt-10 hidden">
+    <div class="bg-white border border-slate-200 rounded-2xl p-8 text-center">
+      <span class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+        <i data-lucide="circle-check" class="w-8 h-8"></i>
+      </span>
+      <h1 class="mt-5 text-2xl font-bold text-slate-900">Dokumen berhasil diamankan</h1>
+      <p class="mt-2 text-sm text-slate-500">Paket siap dibagikan. Hanya pemegang kunci yang bisa membukanya.</p>
+
+      <div class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-5 flex items-center gap-4 text-left">
+        <span class="w-11 h-11 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center shrink-0">
+          <i data-lucide="file-lock-2" class="w-5 h-5"></i>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p id="result-name" class="font-semibold text-slate-900 truncate">kontrak_kerjasama.pdf.sdoc</p>
+          <p id="result-detail" class="text-xs text-slate-500">Paket terenkripsi + tanda tangan digital</p>
+        </div>
+        <button id="btn-download" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition shrink-0">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          Download
+        </button>
+      </div>
+
+      <div id="result-password" class="hidden mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-5 text-left">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-semibold text-amber-800 uppercase tracking-wide">Password pengamanan</p>
+            <p id="result-password-value" class="mt-1 font-mono text-sm text-amber-900">Matahari-Ungu-72-Senja</p>
+          </div>
+          <button id="btn-copy-pass" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition shrink-0">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            Salin
+          </button>
+        </div>
+        <p class="mt-3 text-xs text-amber-800 leading-relaxed">Kirim password ini lewat jalur terpisah dari filenya (misalnya telepon atau SMS).</p>
+      </div>
+
+      <div id="result-sign" class="hidden mt-4 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-left items-center gap-3">
+        <i data-lucide="pen-tool" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+        <p class="text-sm text-emerald-800">Ditandatangani oleh <strong id="result-signer">Budi Santoso</strong> — keaslian bisa dicek siapa pun.</p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a id="share-wa" href="#" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          Bagikan via WhatsApp
+        </a>
+        <a href="buka.html" class="inline-flex items-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 px-5 py-2.5 rounded-xl transition">
+          Coba Buka Paket
+        </a>
+        <button id="btn-again" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 px-5 py-2.5 transition">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          Amankan Dokumen Lain
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+lucide.createIcons();
+
+const identity = KriptaIdentity.get();
+const shortFp = identity.fingerprint.split(':').slice(0, 8).join(':');
+document.getElementById('sign-identity').innerHTML = '<option>' + identity.name + ' — ' + shortFp + '</option>';
+document.getElementById('result-signer').textContent = identity.name;
+
+const panels = [...document.querySelectorAll('[data-panel]')];
+const circles = [...document.querySelectorAll('[data-circle]')];
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+let current = 1;
+let processStarted = false;
+let fileName = 'kontrak_kerjasama.pdf';
+let mode = null;
+let signOn = false;
+let generatedPassword = document.getElementById('password-field').value;
+
+function go(n) {
+  current = n;
+  panels.forEach((p) => p.classList.toggle('hidden', Number(p.dataset.panel) !== n));
+  circles.forEach((c) => {
+    const num = Number(c.dataset.circle);
+    if (num < n) {
+      c.className = 'w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-emerald-500 text-white';
+      c.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
+    } else if (num === n) {
+      c.className = 'w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-900 text-white';
+      c.textContent = num;
+    } else {
+      c.className = 'w-10 h-10 rounded-full flex items-center justify-center font-semibold bg-slate-200 text-slate-500';
+      c.textContent = num;
+    }
+  });
+  lucide.createIcons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 3 && !processStarted) {
+    processStarted = true;
+    runProcess();
+  }
+}
+
+const fileInput = document.getElementById('file-input');
+const fileChip = document.getElementById('file-chip');
+const btnTo2 = document.getElementById('btn-to-2');
+
+fileInput.addEventListener('change', () => {
+  const f = fileInput.files[0];
+  if (!f) return;
+  fileName = f.name;
+  document.getElementById('file-name').textContent = f.name;
+  document.getElementById('file-size').textContent = (f.size / (1024 * 1024)).toFixed(2) + ' MB';
+  fileChip.classList.remove('hidden');
+  fileChip.classList.add('flex');
+  btnTo2.disabled = false;
+});
+
+const btnTo3 = document.getElementById('btn-to-3');
+const pubkey = document.getElementById('pubkey');
+const passwordField = document.getElementById('password-field');
+
+function validateMode() {
+  const ok = mode === 'hybrid' ? pubkey.value.trim().length > 20 : mode === 'password' && passwordField.value.length > 0;
+  btnTo3.disabled = !ok;
+}
+
+document.querySelectorAll('.mode-card').forEach((card) => {
+  card.addEventListener('click', () => {
+    mode = card.dataset.mode;
+    document.querySelectorAll('.mode-card').forEach((c) => {
+      const active = c === card;
+      c.className = 'mode-card text-left border-2 rounded-2xl p-5 transition ' + (active ? 'border-emerald-400 bg-emerald-50/60' : 'border-slate-200 bg-white hover:border-slate-300');
+      c.querySelector('[data-mode-check]').classList.toggle('hidden', !active);
+    });
+    document.getElementById('panel-hybrid').classList.toggle('hidden', mode !== 'hybrid');
+    document.getElementById('panel-password').classList.toggle('hidden', mode !== 'password');
+    lucide.createIcons();
+    validateMode();
+  });
+});
+
+pubkey.addEventListener('input', validateMode);
+
+const words = ['Matahari', 'Ungu', 'Senja', 'Hujan', 'Bambu', 'Kopi', 'Pulau', 'Merah', 'Angin', 'Batu'];
+document.getElementById('btn-regen').addEventListener('click', () => {
+  const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  generatedPassword = rand(words) + '-' + rand(words) + '-' + Math.floor(10 + Math.random() * 89) + '-' + rand(words);
+  passwordField.value = generatedPassword;
+  validateMode();
+});
+
+const toggleSign = document.getElementById('toggle-sign');
+const toggleKnob = document.getElementById('toggle-knob');
+toggleSign.addEventListener('click', () => {
+  signOn = !signOn;
+  toggleSign.className = 'relative w-11 h-6 rounded-full transition shrink-0 ' + (signOn ? 'bg-slate-900' : 'bg-slate-300');
+  toggleKnob.className = 'absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ' + (signOn ? 'translate-x-5' : '');
+  document.getElementById('panel-sign').classList.toggle('hidden', !signOn);
+});
+
+async function runProcess() {
+  document.getElementById('task-protect-label').textContent = mode === 'hybrid'
+    ? 'Mengamankan kunci AES (RSA-OAEP)'
+    : 'Menurunkan kunci dari password (PBKDF2)';
+  document.getElementById('task-sign').classList.toggle('hidden', !signOn);
+  const tasks = [...document.querySelectorAll('[data-task]')].filter((t) => !t.classList.contains('hidden'));
+  for (const t of tasks) {
+    const status = t.querySelector('[data-task-status]');
+    status.textContent = 'Berjalan...';
+    status.className = 'text-xs text-sky-600 font-medium';
+    const bar = t.querySelector('[data-bar]');
+    bar.style.transition = 'width 650ms linear';
+    bar.style.width = '100%';
+    await wait(780);
+    status.textContent = 'Selesai';
+    status.className = 'text-xs text-emerald-600 font-medium';
+  }
+  await wait(450);
+  document.getElementById('result-name').textContent = fileName + '.sdoc';
+  document.getElementById('result-detail').textContent = mode === 'hybrid'
+    ? 'Dienkripsi untuk kunci publik penerima'
+    : 'Dienkripsi dengan password';
+  if (mode === 'password') {
+    document.getElementById('result-password-value').textContent = passwordField.value;
+    document.getElementById('result-password').classList.remove('hidden');
+  }
+  if (signOn) {
+    const el = document.getElementById('result-sign');
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+  }
+  document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent('Dokumen aman dari Kripta: ' + fileName + '.sdoc. Buka di Kripta untuk membukanya.');
+  go(4);
+}
+
+document.getElementById('btn-to-2').addEventListener('click', () => go(2));
+document.getElementById('btn-back-1').addEventListener('click', () => go(1));
+document.getElementById('btn-to-3').addEventListener('click', () => go(3));
+document.getElementById('btn-again').addEventListener('click', () => location.reload());
+
+document.getElementById('btn-download').addEventListener('click', () => {
+  const blob = new Blob(['(mockup) paket terenkripsi + tanda tangan digital'], { type: 'application/octet-stream' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName + '.sdoc';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+document.getElementById('btn-copy-pass').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(document.getElementById('result-password-value').textContent);
+  } catch (e) {}
+  const btn = document.getElementById('btn-copy-pass');
+  btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Tersalin';
+  lucide.createIcons();
+  setTimeout(() => {
+    btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i> Salin';
+    lucide.createIcons();
+  }, 1600);
+});
+</script>
+</body>
+</html>

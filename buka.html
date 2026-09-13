@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buka Dokumen — Kripta</title>
+<script src="assets/tailwind.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/identity.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </span>
+      <span class="font-bold text-lg text-slate-900">Kripta</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
+      <a href="index.html" class="hover:text-slate-900 transition">Beranda</a>
+      <a href="amankan.html" class="hover:text-slate-900 transition">Amankan Dokumen</a>
+      <a href="buka.html" class="text-slate-900">Buka Dokumen</a>
+      <a href="verifikasi.html" class="hover:text-slate-900 transition">Verifikasi</a>
+      <a href="kunci.html" class="hover:text-slate-900 transition">Kunci Saya</a>
+    </div>
+    <a href="amankan.html" class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition">Amankan Dokumen</a>
+  </div>
+</nav>
+
+<main class="max-w-3xl mx-auto px-4 py-12">
+  <div class="text-center">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide bg-sky-50 text-sky-700 border border-sky-200 px-3 py-1.5 rounded-full">
+      <i data-lucide="file-lock-2" class="w-3.5 h-3.5"></i>
+      Penerima Paket
+    </span>
+    <h1 class="mt-5 text-3xl font-bold text-slate-900">Buka Paket Dokumen</h1>
+    <p class="mt-3 text-slate-500 leading-relaxed">Terima file .sdoc? Buka di sini. Dekripsi berjalan di perangkatmu — file tidak diunggah ke mana pun.</p>
+  </div>
+
+  <div class="mt-10 bg-white border border-slate-200 rounded-2xl p-8">
+    <label class="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-slate-400 rounded-2xl py-10 cursor-pointer transition text-center px-4">
+      <input id="input-sdoc" type="file" class="hidden">
+      <i data-lucide="file-lock-2" class="w-8 h-8 text-slate-400"></i>
+      <p class="mt-3 text-sm font-medium text-slate-700">Pilih file .sdoc</p>
+      <p id="sdoc-label" class="mt-1 text-xs text-slate-500">Paket terenkripsi dari pengirim</p>
+    </label>
+
+    <div class="mt-6 flex gap-1.5 bg-slate-100 p-1.5 rounded-xl">
+      <button id="tab-pass" class="flex-1 py-2.5 rounded-lg text-sm font-semibold bg-white shadow text-slate-900 transition">Pakai Password</button>
+      <button id="tab-key" class="flex-1 py-2.5 rounded-lg text-sm font-semibold text-slate-500 transition">Pakai Kunci Tersimpan</button>
+    </div>
+
+    <div id="panel-pass" class="mt-5">
+      <label class="block text-sm font-medium text-slate-700 mb-1.5">Password dari pengirim</label>
+      <input id="password-input" type="text" value="Matahari-Ungu-72-Senja" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition font-mono text-sm">
+    </div>
+
+    <div id="panel-key" class="mt-5 hidden">
+      <label class="block text-sm font-medium text-slate-700 mb-1.5">Kunci privatmu</label>
+      <select id="stored-key" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition bg-white">
+      </select>
+      <p class="mt-1.5 text-xs text-slate-500">Kunci tersimpan di perangkat ini dan dibuka dengan passwordmu. <a href="kunci.html" class="font-medium text-slate-700 underline">Kelola kunci</a></p>
+    </div>
+
+    <button id="btn-open" class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3.5 rounded-xl transition">
+      <i data-lucide="unlock" class="w-5 h-5"></i>
+      Buka Dokumen
+    </button>
+    <p class="mt-3 text-center text-xs text-slate-400">Dekripsi dan verifikasi tanda tangan berjalan lokal di browser.</p>
+  </div>
+
+  <div id="loading" class="hidden mt-8 bg-white border border-slate-200 rounded-2xl p-8 text-center">
+    <i data-lucide="loader" class="w-8 h-8 text-slate-400 animate-spin mx-auto"></i>
+    <p class="mt-4 text-sm font-medium text-slate-700">Membuka paket dokumen...</p>
+    <p class="mt-1 text-xs text-slate-500">Mendekripsi kunci AES, membuka dokumen, lalu memverifikasi tanda tangan.</p>
+  </div>
+
+  <div id="result-success" class="hidden mt-8">
+    <div class="bg-white border-2 border-emerald-300 rounded-2xl overflow-hidden">
+      <div class="bg-emerald-50 border-b border-emerald-200 px-8 py-6 flex items-center gap-4">
+        <span class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+          <i data-lucide="unlock" class="w-7 h-7"></i>
+        </span>
+        <div>
+          <p class="text-xl font-bold text-emerald-900">DOKUMEN BERHASIL DIBUKA</p>
+          <p class="text-sm text-emerald-700">Paket utuh dan tanda tangan valid.</p>
+        </div>
+      </div>
+      <div class="px-8 py-6">
+        <div class="flex items-center gap-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+          <i data-lucide="file-text" class="w-6 h-6 text-slate-500 shrink-0"></i>
+          <div class="flex-1 min-w-0">
+            <p id="opened-name" class="font-semibold text-slate-900 truncate">kontrak_kerjasama.pdf</p>
+            <p class="text-xs text-slate-500">Dokumen asli hasil dekripsi</p>
+          </div>
+          <button id="btn-save-doc" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition shrink-0">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            Simpan
+          </button>
+        </div>
+        <div class="mt-4 space-y-3 text-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-100 pb-3">
+            <span class="text-slate-500">Tanda tangan digital</span>
+            <span class="inline-flex items-center gap-1.5 font-medium text-emerald-700">
+              <i data-lucide="circle-check" class="w-4 h-4"></i>
+              Valid — <span id="signed-by">Budi Santoso</span>
+            </span>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <span class="text-slate-500">Kode verifikasi kunci penandatangan</span>
+            <span id="signer-fp" class="font-mono text-xs text-slate-800 break-all">A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-fail" class="hidden mt-8">
+    <div class="bg-white border-2 border-rose-300 rounded-2xl overflow-hidden">
+      <div class="bg-rose-50 border-b border-rose-200 px-8 py-6 flex items-center gap-4">
+        <span class="w-14 h-14 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+          <i data-lucide="triangle-alert" class="w-7 h-7"></i>
+        </span>
+        <div>
+          <p class="text-xl font-bold text-rose-900">GAGAL MEMBUKA</p>
+          <p class="text-sm text-rose-700">Password salah atau paket tidak utuh.</p>
+        </div>
+      </div>
+      <div class="px-8 py-6 text-sm text-slate-600 leading-relaxed">
+        <p>Kunci tidak bisa membuka paket ini. Periksa kembali password yang dikirim pengirim lewat jalur terpisah, atau minta ulang paketnya jika file dicurigai berubah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 flex items-center justify-center gap-3">
+    <span class="text-xs text-slate-400">Contoh tampilan:</span>
+    <button id="demo-ok" class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 transition">Berhasil</button>
+    <button id="demo-fail" class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-slate-500 hover:border-rose-300 hover:text-rose-600 transition">Gagal</button>
+  </div>
+</main>
+
+<script>
+lucide.createIcons();
+
+const identity = KriptaIdentity.get();
+const shortFp = identity.fingerprint.split(':').slice(0, 8).join(':');
+document.getElementById('stored-key').innerHTML = '<option>' + identity.name + ' — ' + shortFp + '</option>';
+document.getElementById('signed-by').textContent = identity.name;
+document.getElementById('signer-fp').textContent = identity.fingerprint;
+
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const loading = document.getElementById('loading');
+const resultSuccess = document.getElementById('result-success');
+const resultFail = document.getElementById('result-fail');
+const demoOk = document.getElementById('demo-ok');
+const demoFail = document.getElementById('demo-fail');
+const btnOpen = document.getElementById('btn-open');
+
+function setDemoPill(ok) {
+  demoOk.className = ok
+    ? 'text-xs font-semibold px-3.5 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 transition'
+    : 'text-xs font-semibold px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-slate-500 hover:border-emerald-300 hover:text-emerald-600 transition';
+  demoFail.className = ok
+    ? 'text-xs font-semibold px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-slate-500 hover:border-rose-300 hover:text-rose-600 transition'
+    : 'text-xs font-semibold px-3.5 py-1.5 rounded-full border border-rose-300 bg-rose-50 text-rose-700 transition';
+}
+
+function showResult(ok) {
+  resultSuccess.classList.toggle('hidden', !ok);
+  resultFail.classList.toggle('hidden', ok);
+  setDemoPill(ok);
+  resultSuccess.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const tabPass = document.getElementById('tab-pass');
+const tabKey = document.getElementById('tab-key');
+const panelPass = document.getElementById('panel-pass');
+const panelKey = document.getElementById('panel-key');
+
+function setTab(useKey) {
+  tabPass.className = useKey
+    ? 'flex-1 py-2.5 rounded-lg text-sm font-semibold text-slate-500 transition'
+    : 'flex-1 py-2.5 rounded-lg text-sm font-semibold bg-white shadow text-slate-900 transition';
+  tabKey.className = useKey
+    ? 'flex-1 py-2.5 rounded-lg text-sm font-semibold bg-white shadow text-slate-900 transition'
+    : 'flex-1 py-2.5 rounded-lg text-sm font-semibold text-slate-500 transition';
+  panelPass.classList.toggle('hidden', useKey);
+  panelKey.classList.toggle('hidden', !useKey);
+}
+
+tabPass.addEventListener('click', () => setTab(false));
+tabKey.addEventListener('click', () => setTab(true));
+
+btnOpen.addEventListener('click', async () => {
+  resultSuccess.classList.add('hidden');
+  resultFail.classList.add('hidden');
+  loading.classList.remove('hidden');
+  btnOpen.disabled = true;
+  btnOpen.classList.add('opacity-50');
+  await wait(1600);
+  loading.classList.add('hidden');
+  btnOpen.disabled = false;
+  btnOpen.classList.remove('opacity-50');
+  showResult(true);
+});
+
+demoOk.addEventListener('click', () => showResult(true));
+demoFail.addEventListener('click', () => showResult(false));
+
+document.getElementById('input-sdoc').addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  document.getElementById('sdoc-label').textContent = f.name;
+  document.getElementById('opened-name').textContent = f.name.replace(/\.sdoc$/i, '');
+});
+
+document.getElementById('btn-save-doc').addEventListener('click', () => {
+  const name = document.getElementById('opened-name').textContent;
+  const blob = new Blob(['(mockup) dokumen hasil dekripsi'], { type: 'application/octet-stream' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+</script>
+</body>
+</html>

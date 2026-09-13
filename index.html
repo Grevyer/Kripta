@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kripta — Amankan & Verifikasi Dokumen Digital</title>
+<script src="assets/tailwind.js"></script>
+<script src="assets/lucide.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </span>
+      <span class="font-bold text-lg text-slate-900">Kripta</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
+      <a href="index.html" class="text-slate-900">Beranda</a>
+      <a href="amankan.html" class="hover:text-slate-900 transition">Amankan Dokumen</a>
+      <a href="buka.html" class="hover:text-slate-900 transition">Buka Dokumen</a>
+      <a href="verifikasi.html" class="hover:text-slate-900 transition">Verifikasi</a>
+      <a href="kunci.html" class="hover:text-slate-900 transition">Kunci Saya</a>
+    </div>
+    <a href="amankan.html" class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition">Amankan Dokumen</a>
+  </div>
+</nav>
+
+<header class="bg-slate-900 text-white">
+  <div class="max-w-6xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-full">
+        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        Gratis · Tanpa akun · Tanpa install
+      </span>
+      <h1 class="mt-6 text-4xl md:text-5xl font-extrabold leading-tight">Kirim Dokumen Tanpa Takut Dipalsukan</h1>
+      <p class="mt-5 text-slate-300 text-lg leading-relaxed">Kripta berjalan langsung di browser-mu. Dokumen dan kunci tidak pernah meninggalkan perangkatmu — bahkan kami tidak bisa membukanya.</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="amankan.html" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold px-6 py-3 rounded-xl transition">
+          <i data-lucide="file-lock-2" class="w-5 h-5"></i>
+          Amankan Dokumen
+        </a>
+        <a href="verifikasi.html" class="inline-flex items-center gap-2 border border-slate-600 hover:border-slate-400 px-6 py-3 rounded-xl font-semibold transition">
+          <i data-lucide="badge-check" class="w-5 h-5"></i>
+          Cek Keaslian
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-slate-400">Verifikasi dokumen siapa pun tanpa biaya dan tanpa daftar.</p>
+    </div>
+    <div class="hidden md:block">
+      <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6">
+        <div class="flex items-center gap-3">
+          <span class="w-11 h-11 rounded-xl bg-slate-700 flex items-center justify-center">
+            <i data-lucide="file-text" class="w-5 h-5 text-slate-300"></i>
+          </span>
+          <div>
+            <p class="font-semibold">kontrak_kerjasama.pdf</p>
+            <p class="text-xs text-slate-400">2,4 MB</p>
+          </div>
+        </div>
+        <div class="mt-5 space-y-3 text-sm">
+          <div class="flex items-center justify-between bg-slate-900/60 rounded-lg px-3 py-2.5">
+            <span class="flex items-center gap-2 text-slate-300"><i data-lucide="key-round" class="w-4 h-4 text-emerald-400"></i> AES-256-GCM</span>
+            <span class="text-emerald-400 font-medium">Terenkripsi</span>
+          </div>
+          <div class="flex items-center justify-between bg-slate-900/60 rounded-lg px-3 py-2.5">
+            <span class="flex items-center gap-2 text-slate-300"><i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i> RSA-2048 OAEP</span>
+            <span class="text-emerald-400 font-medium">Kunci aman</span>
+          </div>
+          <div class="flex items-center justify-between bg-slate-900/60 rounded-lg px-3 py-2.5">
+            <span class="flex items-center gap-2 text-slate-300"><i data-lucide="pen-tool" class="w-4 h-4 text-emerald-400"></i> Tanda tangan</span>
+            <span class="text-emerald-400 font-medium">Valid</span>
+          </div>
+        </div>
+        <p class="mt-4 text-xs text-slate-500 text-center">kontrak_kerjasama.pdf.sdoc — siap dibagikan</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-4 py-20">
+  <div class="text-center max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-slate-900">Kenapa ini penting?</h2>
+    <p class="mt-3 text-slate-600">Dokumen digital mudah dipalsukan dan rawan bocor saat dikirim lewat email atau chat.</p>
+  </div>
+  <div class="mt-12 grid md:grid-cols-3 gap-6">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-11 h-11 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+        <i data-lucide="file-warning" class="w-5 h-5"></i>
+      </span>
+      <h3 class="mt-4 font-semibold text-slate-900">Pemalsuan dokumen</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Ijazah, surat, dan kontrak bisa dipalsukan dan hampir tidak bisa dibedakan dengan mata.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+        <i data-lucide="unplug" class="w-5 h-5"></i>
+      </span>
+      <h3 class="mt-4 font-semibold text-slate-900">Rawan bocor saat dikirim</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Email dan chat tidak melindungi isi dokumen. Satu salah kirim, data sensitif tersebar.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
+        <i data-lucide="scan-search" class="w-5 h-5"></i>
+      </span>
+      <h3 class="mt-4 font-semibold text-slate-900">Verifikasi yang sulit</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Penerima tidak punya cara cepat untuk memastikan dokumen itu asli dan belum diubah.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white border-y border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-20">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900">Dua mode pengamanan</h2>
+      <p class="mt-3 text-slate-600">Pilih sesuai kebutuhan. Keduanya berjalan penuh di browser, tanpa server.</p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="relative border-2 border-emerald-300 bg-emerald-50/60 rounded-2xl p-7">
+        <span class="absolute -top-3 left-7 text-xs font-semibold bg-emerald-600 text-white px-3 py-1 rounded-full">Recommended</span>
+        <span class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+          <i data-lucide="shield" class="w-5 h-5"></i>
+        </span>
+        <h3 class="mt-4 font-semibold text-slate-900 text-lg">Hybrid (AES-256 + RSA)</h3>
+        <p class="mt-2 text-sm text-slate-600 leading-relaxed">Kunci AES diacak untuk tiap dokumen, lalu diamankan dengan kunci publik penerima. Kunci privat tidak pernah berpindah tangan.</p>
+      </div>
+      <div class="border border-slate-200 bg-white rounded-2xl p-7">
+        <span class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
+          <i data-lucide="key-round" class="w-5 h-5"></i>
+        </span>
+        <h3 class="mt-4 font-semibold text-slate-900 text-lg">Password</h3>
+        <p class="mt-2 text-sm text-slate-600 leading-relaxed">Dokumen dikunci dengan password yang dibuat otomatis. Praktis untuk pemakaian cepat sehari-hari.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cara-kerja" class="max-w-6xl mx-auto px-4 py-20">
+  <div class="text-center max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-slate-900">Tiga langkah, selesai</h2>
+    <p class="mt-3 text-slate-600">Semua proses kripto berjalan di perangkatmu, bukan di server kami.</p>
+  </div>
+  <div class="mt-12 grid md:grid-cols-3 gap-6">
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">1</span>
+      <h3 class="mt-4 font-semibold text-slate-900">Amankan</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Dokumen dienkripsi AES-256, kuncinya diamankan RSA atau password, lalu ditandatangani digital.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">2</span>
+      <h3 class="mt-4 font-semibold text-slate-900">Bagikan</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Kirim file .sdoc lewat WhatsApp atau email. Password (jika ada) dikirim lewat jalur terpisah.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <span class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">3</span>
+      <h3 class="mt-4 font-semibold text-slate-900">Buka & verifikasi</h3>
+      <p class="mt-2 text-sm text-slate-600 leading-relaxed">Penerima membuka paket. Siapa pun bisa memverifikasi keaslian dokumen lewat halaman publik.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fitur" class="bg-white border-y border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-20">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900">Kripto kelas industri, tanpa ribet</h2>
+      <p class="mt-3 text-slate-600">Algoritma yang sama dengan yang dipakai bank dan layanan besar, dibungkus jadi alat yang mudah dipakai siapa pun.</p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="key-round" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">AES-256-GCM</h3>
+        <p class="mt-2 text-sm text-slate-600">Enkripsi cepat dan aman untuk file berukuran besar.</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="shield" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">RSA-2048 OAEP</h3>
+        <p class="mt-2 text-sm text-slate-600">Kunci AES dikirim aman tanpa pernah terekspos.</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="pen-tool" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">Digital Signature</h3>
+        <p class="mt-2 text-sm text-slate-600">Bukti keaslian dokumen, tidak bisa disangkal.</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="eye-off" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">Zero-Knowledge</h3>
+        <p class="mt-2 text-sm text-slate-600">Kunci privat tidak pernah meninggalkan perangkatmu.</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="user-round-check" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">Tanpa akun</h3>
+        <p class="mt-2 text-sm text-slate-600">Langsung pakai dari browser. Tidak ada data yang kami simpan.</p>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <i data-lucide="smartphone" class="w-6 h-6 text-emerald-600"></i>
+        <h3 class="mt-3 font-semibold text-slate-900">PC & HP</h3>
+        <p class="mt-2 text-sm text-slate-600">Berbasis web, bisa dibuka dari perangkat apa pun.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-20">
+  <div class="bg-slate-900 rounded-3xl px-8 py-14 text-center text-white">
+    <h2 class="text-3xl font-bold">Punya dokumen yang perlu dicek keasliannya?</h2>
+    <p class="mt-3 text-slate-300">Tidak perlu akun. Unggah dokumen dan file tanda tangannya.</p>
+    <a href="verifikasi.html" class="mt-8 inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold px-6 py-3 rounded-xl transition">
+      <i data-lucide="badge-check" class="w-5 h-5"></i>
+      Verifikasi Sekarang
+    </a>
+  </div>
+</section>
+
+<footer class="border-t border-slate-200 bg-white">
+  <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2.5">
+      <span class="w-8 h-8 rounded-lg bg-slate-900 text-emerald-400 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+      </span>
+      <span class="font-semibold text-slate-900">Kripta</span>
+    </div>
+    <p class="text-sm text-slate-500">AES-256-GCM · RSA-OAEP · RSA-PSS · SHA-256</p>
+    <p class="text-sm text-slate-400">Mockup penelitian — 2026</p>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunci Saya — Kripta</title>
+<script src="assets/tailwind.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/identity.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center">
+        <i data-lucide="shield-check" class="w-5 h-5"></i>
+      </span>
+      <span class="font-bold text-lg text-slate-900">Kripta</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-500">
+      <a href="index.html" class="hover:text-slate-900 transition">Beranda</a>
+      <a href="amankan.html" class="hover:text-slate-900 transition">Amankan Dokumen</a>
+      <a href="buka.html" class="hover:text-slate-900 transition">Buka Dokumen</a>
+      <a href="verifikasi.html" class="hover:text-slate-900 transition">Verifikasi</a>
+      <a href="kunci.html" class="text-slate-900">Kunci Saya</a>
+    </div>
+    <a href="amankan.html" class="text-sm font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition">Amankan Dokumen</a>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-12">
+  <div class="text-center max-w-2xl mx-auto">
+    <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-wide bg-violet-50 text-violet-700 border border-violet-200 px-3 py-1.5 rounded-full">
+      <i data-lucide="user-round-check" class="w-3.5 h-3.5"></i>
+      Tanpa akun, tanpa server
+    </span>
+    <h1 class="mt-5 text-3xl font-bold text-slate-900">Kunci Saya</h1>
+    <p class="mt-3 text-slate-500 leading-relaxed">Identitasmu di Kripta adalah pasangan kunci yang dibuat dan disimpan di perangkat ini. Bagikan kunci publik agar orang bisa mengirim dokumen aman kepadamu.</p>
+  </div>
+
+  <div class="mt-12 grid md:grid-cols-2 gap-6 items-start">
+    <div class="bg-white border border-slate-200 rounded-2xl p-7">
+      <div class="flex items-center gap-4">
+        <span id="id-avatar" class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold text-lg">B</span>
+        <div>
+          <p id="id-name" class="font-semibold text-slate-900">Budi Santoso</p>
+          <p id="id-date" class="text-xs text-slate-500">Dibuat 10 Sep 2026 · tersimpan di perangkat ini</p>
+        </div>
+      </div>
+      <div class="mt-5 bg-slate-50 border border-slate-200 rounded-xl p-4">
+        <p class="text-[11px] uppercase tracking-wide text-slate-400 font-medium">Kode verifikasi kunci publik</p>
+        <p id="id-fp" class="mt-1 text-xs font-mono text-slate-700 break-all">A3:F2:91:7C:5D:8E:44:B0:2A:66:0F:9C:31:D7:55:E8</p>
+      </div>
+      <div class="mt-5 space-y-2.5">
+        <button id="btn-copy-pub" class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          Salin Kunci Publik
+        </button>
+        <button id="btn-dl-pub" class="w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          Unduh Kunci Publik
+        </button>
+        <div class="grid grid-cols-2 gap-2.5">
+          <button id="btn-dl-key" class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+            <i data-lucide="hard-drive-download" class="w-4 h-4"></i>
+            Cadangkan
+          </button>
+          <button id="btn-import" class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            Impor Kunci
+          </button>
+        </div>
+        <input id="import-file" type="file" accept=".sahkey" class="hidden">
+        <p id="import-note" class="hidden items-center gap-2 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+          <i data-lucide="circle-check" class="w-3.5 h-3.5 shrink-0"></i>
+          Kunci berhasil diimpor dari file cadangan.
+        </p>
+      </div>
+      <div class="mt-5 flex items-start gap-2.5 bg-slate-50 border border-slate-200 rounded-xl p-3.5">
+        <i data-lucide="lock" class="w-4 h-4 text-slate-500 mt-0.5 shrink-0"></i>
+        <p class="text-xs text-slate-600 leading-relaxed">Kunci privat tersimpan terenkripsi di perangkat ini dan tidak pernah dibagikan ke siapa pun.</p>
+      </div>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl p-7">
+      <div id="form-new">
+        <h2 class="font-semibold text-slate-900 text-lg">Buat identitas baru</h2>
+        <p class="mt-1.5 text-sm text-slate-500">Buat kunci untuk nama atau peran lain (mis. perusahaan).</p>
+        <div class="mt-6 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5">Nama identitas</label>
+            <input id="input-name" type="text" placeholder="mis. PT Maju Jaya" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1.5">Password pelindung kunci</label>
+            <input type="password" placeholder="Minimal 8 karakter" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 transition">
+          </div>
+          <div class="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl p-3.5">
+            <i data-lucide="triangle-alert" class="w-4 h-4 text-amber-600 mt-0.5 shrink-0"></i>
+            <p class="text-xs text-amber-800 leading-relaxed">Lupa password berarti kunci tidak bisa dipulihkan. Cadangan kunci wajib diunduh di langkah berikutnya.</p>
+          </div>
+          <button id="btn-create-key" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition">Buat Kunci Sekarang</button>
+        </div>
+      </div>
+
+      <div id="keygen" class="hidden">
+        <h2 class="font-semibold text-slate-900 text-lg">Membuat kunci keamanan</h2>
+        <p class="mt-1.5 text-sm text-slate-500">Berjalan di perangkatmu, jangan tutup halaman ini.</p>
+        <div class="mt-6 space-y-4">
+          <div data-kg class="flex items-center gap-3.5 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5">
+            <span data-kg-icon class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center shrink-0">
+              <i data-lucide="loader" class="w-4 h-4 animate-spin"></i>
+            </span>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-slate-800">Membuat pasangan kunci RSA-2048</p>
+              <p data-kg-note class="text-xs text-slate-500">Sedang berjalan...</p>
+            </div>
+          </div>
+          <div data-kg class="flex items-center gap-3.5 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 opacity-40">
+            <span data-kg-icon class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center shrink-0">
+              <i data-lucide="clock" class="w-4 h-4"></i>
+            </span>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-slate-800">Mengenkripsi kunci privat dengan password</p>
+              <p data-kg-note class="text-xs text-slate-500">Menunggu...</p>
+            </div>
+          </div>
+          <div data-kg class="flex items-center gap-3.5 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 opacity-40">
+            <span data-kg-icon class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center shrink-0">
+              <i data-lucide="clock" class="w-4 h-4"></i>
+            </span>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-slate-800">Menyiapkan kunci publik untuk dibagikan</p>
+              <p data-kg-note class="text-xs text-slate-500">Menunggu...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="key-backup" class="hidden">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+            <i data-lucide="hard-drive-download" class="w-5 h-5"></i>
+          </span>
+          <div>
+            <h2 class="font-semibold text-slate-900">Langkah wajib: simpan cadangan kunci</h2>
+            <p class="text-xs text-slate-500">Tanpa cadangan, kunci tidak dapat dipulihkan jika perangkat bermasalah.</p>
+          </div>
+        </div>
+        <div class="mt-5 bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-600 leading-relaxed">
+          File <span class="font-mono">.sahkey</span> berisi kunci privat yang sudah terenkripsi passwordmu. Aman disimpan di cloud pribadi, dikirim ke email sendiri, atau ditaruh di flashdisk.
+        </div>
+        <button id="btn-dl-backup" class="mt-4 w-full flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          Unduh identitas_baru.sahkey
+        </button>
+        <label class="mt-4 flex items-start gap-2.5 cursor-pointer select-none">
+          <input id="check-backup" type="checkbox" disabled class="mt-0.5 w-4 h-4 rounded border-slate-300 accent-emerald-600">
+          <span class="text-xs text-slate-600 leading-relaxed">Saya sudah menyimpan file cadangan di tempat yang aman dan memahami bahwa kunci tidak dapat dipulihkan tanpa file ini dan password.</span>
+        </label>
+        <button id="btn-finish-key" disabled class="mt-4 w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-xl transition">Selesai</button>
+      </div>
+
+      <div id="key-done" class="hidden">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+            <i data-lucide="circle-check" class="w-5 h-5"></i>
+          </span>
+          <div>
+            <h2 class="font-semibold text-slate-900">Kunci berhasil dibuat</h2>
+            <p class="text-xs text-slate-500">Bagikan kunci publik ini ke orang yang ingin mengirim dokumen.</p>
+          </div>
+        </div>
+        <textarea readonly rows="3" class="mt-5 w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50 font-mono text-xs leading-relaxed">KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvG7xK2mQp8sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt</textarea>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <button id="btn-copy-new" class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            Salin
+          </button>
+          <button id="btn-dl-new" class="flex items-center justify-center gap-2 border border-slate-300 hover:border-slate-400 text-sm font-semibold text-slate-700 py-2.5 rounded-xl transition">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            Unduh .sahpub
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-12 grid sm:grid-cols-3 gap-5">
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <i data-lucide="send" class="w-5 h-5 text-emerald-600"></i>
+      <h3 class="mt-3 text-sm font-semibold text-slate-900">Bagikan kunci publik</h3>
+      <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">Kirim .sahpub lewat WhatsApp atau email — aman dibagikan ke siapa pun.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <i data-lucide="lock" class="w-5 h-5 text-emerald-600"></i>
+      <h3 class="mt-3 text-sm font-semibold text-slate-900">Simpan kunci privat</h3>
+      <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">Kunci privat tidak pernah keluar dari perangkat dan terkunci oleh passwordmu.</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <i data-lucide="triangle-alert" class="w-5 h-5 text-amber-500"></i>
+      <h3 class="mt-3 text-sm font-semibold text-slate-900">Jangan sampai lupa</h3>
+      <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">Tidak ada reset password. Kripta mewajibkan unduh cadangan setiap kali membuat kunci.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+lucide.createIcons();
+
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const pubKeySample = 'KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvG7xK2mQp8sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt';
+const keyBackupSample = 'KRIPTA-KEY-7B1C04E922AF63D1-ENC-AES256GCM-eyJ2IjoxLCJpdGVyIjo2MDAwMDAsInNhbHQiOiJ4UzRrVG0iLCJpdiI6ImZQcTJOeSIsImN0IjoiRzN4S2F2YjdUblFwOThXeTFjWmJSOWZMalEifQ';
+
+function renderIdentity(id) {
+  document.getElementById('id-avatar').textContent = (id.name.trim().charAt(0) || '?').toUpperCase();
+  document.getElementById('id-name').textContent = id.name;
+  document.getElementById('id-date').textContent = 'Dibuat ' + id.createdAt + ' · tersimpan di perangkat ini';
+  document.getElementById('id-fp').textContent = id.fingerprint;
+}
+
+function download(name, content) {
+  const blob = new Blob([content], { type: 'application/octet-stream' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function copyText(btn, text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {}
+  btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Tersalin';
+  lucide.createIcons();
+  setTimeout(() => {
+    btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i> Salin';
+    lucide.createIcons();
+  }, 1600);
+}
+
+renderIdentity(KriptaIdentity.get());
+
+document.getElementById('btn-copy-pub').addEventListener('click', (e) => copyText(e.currentTarget, pubKeySample));
+document.getElementById('btn-dl-pub').addEventListener('click', () => {
+  download(KriptaIdentity.slug(KriptaIdentity.get().name) + '.sahpub', pubKeySample);
+});
+document.getElementById('btn-dl-key').addEventListener('click', () => {
+  download(KriptaIdentity.slug(KriptaIdentity.get().name) + '.sahkey', keyBackupSample);
+});
+
+document.getElementById('btn-import').addEventListener('click', () => document.getElementById('import-file').click());
+
+document.getElementById('import-file').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const base = file.name.replace(/\.sahkey$/i, '').replace(/[_-]+/g, ' ').trim();
+  const imported = {
+    name: base || 'Identitas Impor',
+    fingerprint: KriptaIdentity.randomFingerprint(),
+    createdAt: KriptaIdentity.today()
+  };
+  KriptaIdentity.save(imported);
+  renderIdentity(imported);
+  const note = document.getElementById('import-note');
+  note.classList.remove('hidden');
+  note.classList.add('flex');
+  lucide.createIcons();
+  setTimeout(() => {
+    note.classList.add('hidden');
+    note.classList.remove('flex');
+  }, 4000);
+});
+
+document.getElementById('btn-create-key').addEventListener('click', async () => {
+  document.getElementById('form-new').classList.add('hidden');
+  document.getElementById('keygen').classList.remove('hidden');
+  const steps = [...document.querySelectorAll('[data-kg]')];
+  for (const step of steps) {
+    step.classList.remove('opacity-40');
+    step.querySelector('[data-kg-note]').textContent = 'Sedang berjalan...';
+    await wait(1100);
+    step.querySelector('[data-kg-icon]').outerHTML = '<span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>';
+    step.querySelector('[data-kg-note]').textContent = 'Selesai';
+    lucide.createIcons();
+  }
+  const name = document.getElementById('input-name').value.trim() || 'Identitas Baru';
+  const newIdentity = {
+    name: name,
+    fingerprint: KriptaIdentity.randomFingerprint(),
+    createdAt: KriptaIdentity.today()
+  };
+  KriptaIdentity.save(newIdentity);
+  renderIdentity(newIdentity);
+  await wait(400);
+  document.getElementById('keygen').classList.add('hidden');
+  const backupBtn = document.getElementById('btn-dl-backup');
+  backupBtn.innerHTML = '<i data-lucide="download" class="w-4 h-4"></i> Unduh ' + KriptaIdentity.slug(name) + '.sahkey';
+  document.getElementById('key-backup').classList.remove('hidden');
+  lucide.createIcons();
+});
+
+document.getElementById('btn-dl-backup').addEventListener('click', () => {
+  const id = KriptaIdentity.get();
+  download(KriptaIdentity.slug(id.name) + '.sahkey', keyBackupSample);
+  const btn = document.getElementById('btn-dl-backup');
+  btn.innerHTML = '<i data-lucide="circle-check" class="w-4 h-4 text-emerald-600"></i> File cadangan diunduh';
+  btn.classList.add('border-emerald-300', 'text-emerald-700');
+  lucide.createIcons();
+  document.getElementById('check-backup').disabled = false;
+});
+
+document.getElementById('check-backup').addEventListener('change', (e) => {
+  document.getElementById('btn-finish-key').disabled = !e.target.checked;
+});
+
+document.getElementById('btn-finish-key').addEventListener('click', () => {
+  document.getElementById('key-backup').classList.add('hidden');
+  document.getElementById('key-done').classList.remove('hidden');
+  lucide.createIcons();
+});
+
+document.getElementById('btn-copy-new').addEventListener('click', (e) => copyText(e.currentTarget, pubKeySample));
+document.getElementById('btn-dl-new').addEventListener('click', () => {
+  download(KriptaIdentity.slug(KriptaIdentity.get().name) + '.sahpub', pubKeySample);
+});
+</script>
+</body>
+</html>
