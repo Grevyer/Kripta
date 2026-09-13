@@ -302,12 +302,14 @@ document.getElementById('import-file').addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if (!file) return;
   let imported = null;
+  let parsed = false;
   try {
     const text = await file.text();
     const nameMatch = text.match(/^name=(.+)$/m);
     const fpMatch = text.match(/^fingerprint=(.+)$/m);
     const createdMatch = text.match(/^created=(.+)$/m);
     if (nameMatch) {
+      parsed = true;
       imported = {
         name: nameMatch[1].trim(),
         fingerprint: fpMatch ? fpMatch[1].trim() : KriptaIdentity.randomFingerprint(),
@@ -326,6 +328,15 @@ document.getElementById('import-file').addEventListener('change', async (e) => {
   KriptaIdentity.save(imported);
   renderIdentity(imported);
   const note = document.getElementById('import-note');
+  note.innerHTML = parsed
+    ? '<i data-lucide="circle-check" class="w-3.5 h-3.5 shrink-0"></i> Kunci berhasil diimpor dari file cadangan.'
+    : '<i data-lucide="triangle-alert" class="w-3.5 h-3.5 shrink-0"></i> File cadangan format lama — kode verifikasi dibuat ulang.';
+  note.classList.toggle('text-amber-700', !parsed);
+  note.classList.toggle('bg-amber-50', !parsed);
+  note.classList.toggle('border-amber-200', !parsed);
+  note.classList.toggle('text-emerald-700', parsed);
+  note.classList.toggle('bg-emerald-50', parsed);
+  note.classList.toggle('border-emerald-200', parsed);
   note.classList.remove('hidden');
   note.classList.add('flex');
   lucide.createIcons();

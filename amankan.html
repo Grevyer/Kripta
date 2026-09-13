@@ -435,7 +435,25 @@ document.getElementById('btn-to-3').addEventListener('click', () => go(3));
 document.getElementById('btn-again').addEventListener('click', () => location.reload());
 
 document.getElementById('btn-download').addEventListener('click', () => {
-  const blob = new Blob(['(mockup) paket terenkripsi + tanda tangan digital'], { type: 'application/octet-stream' });
+  const senderName = identity ? identity.name : 'Pengirim Contoh';
+  const senderFp = identity ? identity.fingerprint : KriptaIdentity.SAMPLE_SENDER.fingerprint;
+  const packageData = {
+    version: 1,
+    filename: fileName,
+    mode: mode,
+    sender: {
+      name: senderName,
+      fingerprint: senderFp,
+      publicKey: 'KRIPTA-PUB-7B1C04E922AF63D1-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvG7xK2mQp8sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt'
+    },
+    encryptedFile: 'w7Zk3vQpX9sTn4dWy1cZbR9fLjH6oP3eUaXvN5kMtS0iQwErYh2CgDlB4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQt',
+    fileIv: 'qT9bR2mXpL4sWn7y',
+    encryptedAesKey: 'hY2cGdLb4nJmAx8VfPoIuKz6TeRqW9cLbSdH1yGjN0kOm3XvAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHg',
+    keyWrapIv: 'aB3cD4eF5gH6jK9m',
+    signature: 'KrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHgSyM3kXvQtAe5U7ZrQpF2tIwCbMl9nDhE4sYgKj8xVoT1uBzqLpR6fWaNcJd0iHg',
+    timestamp: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(packageData, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = fileName + '.sdoc';
