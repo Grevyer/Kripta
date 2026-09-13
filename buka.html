@@ -214,12 +214,17 @@ function setTab(useKey) {
 tabPass.addEventListener('click', () => setTab(false));
 tabKey.addEventListener('click', () => setTab(true));
 
+let packageSender = null;
+
 btnOpen.addEventListener('click', async () => {
   resultSuccess.classList.add('hidden');
   resultFail.classList.add('hidden');
   loading.classList.remove('hidden');
   btnOpen.disabled = true;
   btnOpen.classList.add('opacity-50');
+  const s = packageSender || identity || KriptaIdentity.SAMPLE_SENDER;
+  document.getElementById('signed-by').textContent = s.name;
+  document.getElementById('signer-fp').textContent = s.fingerprint || KriptaIdentity.SAMPLE_SENDER.fingerprint;
   await wait(1600);
   loading.classList.add('hidden');
   btnOpen.disabled = false;
@@ -230,11 +235,18 @@ btnOpen.addEventListener('click', async () => {
 demoOk.addEventListener('click', () => showResult(true));
 demoFail.addEventListener('click', () => showResult(false));
 
-document.getElementById('input-sdoc').addEventListener('change', (e) => {
+document.getElementById('input-sdoc').addEventListener('change', async (e) => {
   const f = e.target.files[0];
   if (!f) return;
   document.getElementById('sdoc-label').textContent = f.name;
   document.getElementById('opened-name').textContent = f.name.replace(/\.sdoc$/i, '');
+  try {
+    const data = JSON.parse(await f.text());
+    if (data.sender && data.sender.name) {
+      packageSender = data.sender;
+      if (data.filename) document.getElementById('opened-name').textContent = data.filename;
+    }
+  } catch (err) {}
 });
 
 document.getElementById('btn-save-doc').addEventListener('click', () => {

@@ -207,12 +207,17 @@ function showResult(valid) {
   resultValid.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+let packageSigner = null;
+
 btnVerify.addEventListener('click', async () => {
   resultValid.classList.add('hidden');
   resultInvalid.classList.add('hidden');
   loading.classList.remove('hidden');
   btnVerify.disabled = true;
   btnVerify.classList.add('opacity-50');
+  const s = packageSigner || identity || KriptaIdentity.SAMPLE_SENDER;
+  document.getElementById('signer-name').textContent = s.name + ' (@' + KriptaIdentity.slug(s.name) + ')';
+  document.getElementById('signer-fp').textContent = s.fingerprint || KriptaIdentity.SAMPLE_SENDER.fingerprint;
   await wait(1600);
   loading.classList.add('hidden');
   btnVerify.disabled = false;
@@ -228,9 +233,14 @@ document.getElementById('input-doc').addEventListener('change', (e) => {
   if (f) document.getElementById('doc-label').textContent = f.name;
 });
 
-document.getElementById('input-sig').addEventListener('change', (e) => {
+document.getElementById('input-sig').addEventListener('change', async (e) => {
   const f = e.target.files[0];
-  if (f) document.getElementById('sig-label').textContent = f.name;
+  if (!f) return;
+  document.getElementById('sig-label').textContent = f.name;
+  try {
+    const data = JSON.parse(await f.text());
+    if (data.sender && data.sender.name) packageSigner = data.sender;
+  } catch (err) {}
 });
 </script>
 </body>
